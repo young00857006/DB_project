@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <type>Furniture List</type>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, "Microsoft YaHei", "LiHei Pro", TW-Kai;
+        }
+
+        table {
+            background-color: powderblue;
+            border-collapse: collapse;
+            border: 1px solid gray;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Furniture List</h2>
+    <table border="1">
+        <tbody id="menu">
+            <tr>
+                <th>fld</th>
+                <th>type</th>
+                <th>color</th>
+                <th>material</th>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="furniture-creator.html">Add a furniture</a>
+    <br>
+    <a href="furniture-deletor.html">Delete a furniture</a>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        const jsonUrl = "query_API.php";
+        $.getJSON(jsonUrl, function (data) {
+            for (let item in data) {
+                let content =
+                    "<tr>" +
+                    "<td>" + data[item].fld + "</td>" +
+                    "<td>" + data[item].type + "</td>" +
+                    "<td>" + data[item].color + "</td>" +
+                    "<td>" + data[item].material + "</td>" +
+                    "</tr>";
+                $("#menu").append(content);
+            }
+        });
+    </script>
+</body>
+
+</html>
