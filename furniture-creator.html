@@ -22,6 +22,8 @@
     <b>type     </b><input type="text" id="type">
     <b>color    </b><input type="text" id="color">
     <b>material </b><input type="text" id="material">
+    <b>supId    </b><input type="text" id="supId" value="晨皓">
+    <b>sId      </b><input type="text" id="sId" value="家宏">
     <br>
     <button id="insert">Add Furniture</button>
     </pre>
@@ -40,6 +42,8 @@
             obj["type"] = $("#type").val();
             obj["color"] = $("#color").val();
             obj["material"] = $("#material").val();
+            obj["supId"] = $("#supId").val();
+            obj["sId"] = $("#sId").val();
 
             $.post("insert_API.php", obj)
                 .done(function (data) {

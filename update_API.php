@@ -8,21 +8,17 @@
     isset($_POST['fld'])   &&
     isset($_POST['type'])  &&
     isset($_POST['color']) &&
-    isset($_POST['material'])&&
-    isset($_POST['supId']) &&
-    isset($_POST['sId'])
+    isset($_POST['material']) 
   ) {
     $fld   = get_post($conn, 'fld');
     $type = get_post($conn, 'type');
     $color = get_post($conn, 'color');
     $material = get_post($conn, 'material');
-    $supId = get_post($conn, 'supId');
-    $sId = get_post($conn, 'sId');
+  
 
-    $query    = "INSERT INTO test.furniture VALUES" .
-      "('$fld', '$type', '$color', '$material', '$supId', '$sId')";
+    $query    = "UPDATE furniture SET type = '".$type."' , color = '".$color."',material = '".$material."' WHERE fld='".$fld."'";
     $result   = $conn->query($query);
-    if (!$result) echo "INSERT failed,fId存在";
+    if (!$result) echo "UPDATE failed<br><br>";
     else echo "Successful!!";
   }
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <type>Furniture Deletor</type>
+    <type>Furniture Update</type>
     <style type="text/css">
         body {
             font-family: Helvetica, "Microsoft YaHei", "LiHei Pro", TW-Kai;
@@ -16,23 +16,23 @@
 </head>
 
 <body>
-    <h2>Delete Furniture</h2>
+    <h2>Update Furniture</h2>
     <pre>
     <b>fld      </b><input type="text" id="fld">
     <b>type     </b><input type="text" id="type">
     <b>color    </b><input type="text" id="color">
     <b>material </b><input type="text" id="material">
     <br>
-    <button id="delete">Delete Furniture</button>
+    <button id="update">Update Furniture</button>
     </pre>
     <a href="furniture-viewer.html">List all furniturers</a>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
     <script type="text/javascript">
-        const url = "delete_API.php";
+        const url = "update_API.php";
 		
-		$("#delete").click(deleteBook);
+		$("#update").click(deleteBook);
         function deleteBook() {
             
             let obj = {};
@@ -41,7 +41,7 @@
             obj["color"] = $("#color").val();
             obj["material"] = $("#material").val();
 
-            $.post("delete_API.php", obj)
+            $.post("update_API.php", obj)
                 .done(function (data) {
                     window.alert(data);
                 });
