@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-01-10 16:23:23
+-- 產生時間： 2022-01-10 16:22:55
 -- 伺服器版本： 10.4.22-MariaDB
 -- PHP 版本： 8.0.14
 
@@ -24,21 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `publisher`
+-- 資料表結構 `have`
 --
 
-CREATE TABLE `publisher` (
-  `supId` varchar(25) COLLATE utf8_bin NOT NULL,
-  `supAdder` varchar(25) COLLATE utf8_bin NOT NULL,
-  `supPhone` varchar(25) COLLATE utf8_bin NOT NULL
+CREATE TABLE `have` (
+  `amount` varchar(125) COLLATE utf8_bin NOT NULL,
+  `fId` varchar(125) COLLATE utf8_bin NOT NULL,
+  `sId` varchar(125) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- 傾印資料表的資料 `publisher`
+-- 已傾印資料表的索引
 --
 
-INSERT INTO `publisher` (`supId`, `supAdder`, `supPhone`) VALUES
-('晨皓', '基隆市中正區北寧路2號', '02-2462-2192');
+--
+-- 資料表索引 `have`
+--
+ALTER TABLE `have`
+  ADD PRIMARY KEY (`fId`,`sId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
