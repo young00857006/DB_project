@@ -1,6 +1,6 @@
 <?php // login.php
   $hn = 'localhost';
-  $db = 'test';
+  $db = 'db';
   $un = ''; // Change this
   $pw = ''; // Change this
 ?>
