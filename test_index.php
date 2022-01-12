@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <!-- <h2>Add a New Furniture</h2>
+    <h2>Add a New Furniture</h2>
     <pre>
         <b>fId      </b><input type="text" id="fId">
         <b>type     </b><input type="text" id="type">
@@ -45,7 +45,7 @@
         <b>sId      </b><input type="text" id="sId" value=<?php echo '"'.$user.'"'?>>
         <br>
         <button id="delete">Delete Furniture</button>
-    </pre> -->
+    </pre>
 
     <!-- <h2>Update Furniture</h2>
     <pre>
