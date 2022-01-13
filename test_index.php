@@ -1,8 +1,13 @@
 <?php
     session_start();  //很重要，可以用的變數存在session裡
     $user=$_SESSION["sId"];
-    echo "<h1>你好 ".$user."!!</h1>";
-    echo "<a href='php-member/logout.php'>登出</a><br>";
+    if($user){
+        echo "<h1>你好 ".$user."!!</h1>";
+        echo "<a href='php-member/logout.php'>登出</a><br>";
+    }
+    else{
+        header("location:test.php");
+    }
     
 ?>
 
@@ -24,7 +29,7 @@
 </head>
 
 <body>
-    <!-- <h2>Add a New Furniture</h2>
+    <h2>Add a New Furniture</h2>
     <pre>
         <b>fId      </b><input type="text" id="fId">
         <b>type     </b><input type="text" id="type">
@@ -36,7 +41,7 @@
         <button id="insert">Add Furniture</button>
     </pre>
     
-    <h2>Delete Furniture</h2>
+    <!-- <h2>Delete Furniture</h2>
     <pre>
         <b>fId      </b><input type="text" id="fId">
         <b>type     </b><input type="text" id="type">
@@ -45,7 +50,7 @@
         <b>sId      </b><input type="text" id="sId" value=<?php echo '"'.$user.'"'?>>
         <br>
         <button id="delete">Delete Furniture</button>
-    </pre> -->
+    </pre> --> -->
 
     <!-- <h2>Update Furniture</h2>
     <pre>
@@ -66,6 +71,8 @@
                 <th>type</th>
                 <th>color</th>
                 <th>material</th>
+                <th>amount</th>
+                <th>supId</th>
             </tr>
         </tbody>
     </table>
@@ -86,7 +93,7 @@
             obj["amount"] = $("#amount").val();
             obj["sId"] = <?php echo '"'.$user.'";';?>
 
-            $.post("php-furniture/insert_API.php", obj)
+            $.post("php-furnitureAPI/insert_API.php", obj)
                 .done(function (data) {
                     window.alert(data);
                 });
@@ -103,7 +110,7 @@
             obj["material"] = $("#material").val();
             obj["sId"] = $("#sId").val();
 
-            $.post("php-furniture/delete_API.php", obj)
+            $.post("php-furnitureAPI/delete_API.php", obj)
                 .done(function (data) {
                     window.alert(data);
                 });
@@ -121,18 +128,16 @@
             obj["amount"] = $("#amount").val();
             obj["sId"] = <?php echo '"'.$user.'";';?>
             console.log(obj);
-            $.post("php-furniture/update_API.php", obj)
+            $.post("php-furnitureAPI/update_API.php", obj)
                 .done(function (data) {
                     window.alert(data);
                 });
         }
 
 
-        //查詢
-        let search ={};
-        search["sId"] = <?php echo '"'.$user.'";';?>
+        
 
-        $.getJSON("furniture/query_API.php", search, function (data) {
+        $.getJSON("php-furnitureAPI/query_API.php", function (data) {
             for (let item in data) {
                 let content =
                     "<tr>" +
@@ -140,6 +145,8 @@
                     "<td>" + data[item].type + "</td>" +
                     "<td>" + data[item].color + "</td>" +
                     "<td>" + data[item].material + "</td>" +
+                    "<td>" + data[item].amount + "</td>" +
+                    "<td>" + data[item].supId + "</td>" +
                     "</tr>";
                 $("#menu").append(content);
             }
