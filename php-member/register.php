@@ -15,7 +15,7 @@
             if(mysqli_query($conn, $sql)){
                 echo "註冊成功!3秒後將自動跳轉頁面<br>";
                 echo "<a href='../test.php'>未成功跳轉頁面請點擊此</a>";
-                header("refresh:3;url=../merchant.html",true);
+                header("refresh:3;url=../HomePage.html",true);
                 exit;
             }else{
                 echo "Error creating table: " . mysqli_error($conn);

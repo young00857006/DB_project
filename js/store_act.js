@@ -2,7 +2,7 @@ function show_all_funiture(){
     var Merchant = sessionStorage.getItem('Merchant');
     var url = "";
     $("#Merchant_list").html("");
-    $.getJSON(url,function(result){
+    /*$.getJSON(url,function(result){
         $.each(result,function(index,value){
             var insertHTML = "";
             insertHTML += `
@@ -27,7 +27,7 @@ function show_all_funiture(){
             `;
             $("#Merchant_list").append(insertHTML);
         });
-    });
+    });*/
 }
 function delete_funiture(fid,sid){
 
@@ -48,8 +48,7 @@ function post_funiture(){//新增家具
 }
 $("document").ready(function(){
 
-    if(sessionStorage.getItem("Merchant") == null)
-        $(window).attr('location','index.html');
+    console.log("start");
     //將供應商填入列表
     $("#post_confirm_btn").click(function(){
         post_funiture();
@@ -84,7 +83,6 @@ $("document").ready(function(){
     });
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
-            sessionStorage.removeItem('Merchant');
             $(window).attr('location','index.html');
         }
     });
