@@ -217,7 +217,7 @@ $("document").ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>家具 <b>管理</b></h2>
+						<h2><b><?php echo $user;?>の家具管理</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<button class="btn btn-info" id = "sign_out_btn">登出</button>
