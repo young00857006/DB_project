@@ -18,7 +18,7 @@
             $_SESSION["sId"] = $row["sId"];
             $_SESSION["sPhone"] = $row["sPhone"];
             $_SEESION["sAdder"] = $row["sAdder"];
-            header("location:../store.php");
+            header("location:../store.html");
         }else{
                 function_alert("帳號或密碼錯誤"); 
             }
@@ -34,7 +34,7 @@
         
         // Display the alert box  
         echo "<script>alert('$message');
-        window.location.href='../HomePage.php';
+        window.location.href='../HomePage.html';
         </script>"; 
         return false;
     } 
