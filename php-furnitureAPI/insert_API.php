@@ -23,7 +23,7 @@
     $sId = get_post($conn, 'sId');
 
     $query    = "INSERT INTO furniture VALUES" .
-      "('$fId', '$type', '$color', '$material', '$supId')";
+      "('$fId','$sId', '$type', '$color', '$material', '$supId')";
     $result   = $conn->query($query);
     if (!$result) echo "INSERT failed";
     else echo "Successful!!";

@@ -4,7 +4,7 @@
   
   // Check if the user is already logged in, if yes then redirect him to welcome page
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-      header("location: HomePage.php");
+      header("location: store.php");
       exit;  //記得要跳出來，不然會重複轉址過多次
   }
 ?>
@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script>
-    
+
 </script>
 
 </head>
