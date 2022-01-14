@@ -52,6 +52,8 @@
         <button id="delete">Delete Furniture</button>
     </pre> --> -->
 
+
+
     <!-- <h2>Update Furniture</h2>
     <pre>
         <b>fId      </b><input type="text" id="fId">
