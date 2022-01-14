@@ -1,5 +1,5 @@
 $("document").ready(function(){
-    $("#sign_in_btn").click(function(){
+    /*$("#sign_in_btn").click(function(){
         var Merchant = "";
         sessionStorage.setItem('Merchant', "ssss");
         console.log("sss");
@@ -8,7 +8,7 @@ $("document").ready(function(){
 
         $.ajax({ 
             type: "POST",
-            url: "http://127.0.0.1:5000/DB/updateStatus", 
+            url: "php-member/Login.php", 
             data:sid,
             success: function(re){
                 //console.log(data);
@@ -26,7 +26,7 @@ $("document").ready(function(){
             }
         });
         
-    });
+    });*/
     $("#sign_up_btn").click(function(){
         var store = {};
         store.sId = $("#store_name").val();
