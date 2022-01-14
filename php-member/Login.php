@@ -18,7 +18,7 @@
             $_SESSION["sId"] = $row["sId"];
             $_SESSION["sPhone"] = $row["sPhone"];
             $_SEESION["sAdder"] = $row["sAdder"];
-            header("location:../merchant.html");
+            header("location:/DB_project/merchant.html");
         }else{
                 function_alert("帳號或密碼錯誤"); 
             }
