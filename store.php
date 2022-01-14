@@ -138,16 +138,11 @@ $("document").ready(function(){
 	$("#edit_supId").html("");
 	$("#post_supId").html("");
 	$.getJSON("php-publisher/publisherQuery_API.php", function (data) {
-		for (let item in data) {
-			$.each(data,function(index,value){
-				var inset_sup = 
-				`
-				<option value="${value.supId}">${value.supId}</option>
-				`;
-				$("#edit_supId").append(inset_sup);
-				$("#post_supId").append(inset_sup);
-			});
-		}
+		$.each(data,function(index,value){
+			var inset_sup = `<option value="${value.supId}">${value.supId}</option>`;
+			$("#edit_supId").append(inset_sup);
+			$("#post_supId").append(inset_sup);
+		});
 	});
     
     show_all_funiture();
@@ -161,6 +156,7 @@ $("document").ready(function(){
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
          $(window).attr('location','php-member/logout.php');
+		}
     });
 });
 </script>
@@ -362,7 +358,6 @@ $("document").ready(function(){
 					<div class="form-group">
 						<label>供應商</label>
 						<select id  = "edit_supId" name="supplier" id="supplier">
-                            <option value=""></option>
 						</select>
 					</div>	
 				</div>
