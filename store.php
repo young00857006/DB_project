@@ -156,21 +156,26 @@ $("document").ready(function(){
 		location.reload(true);
     });
     $(".search-box").focusout(function(){//搜尋
-        console.log($("#search_val").val());
-		$("#Merchant_list").html("");
-		$.ajax({
-            url : "php-publisher/getPublisher_query.php",
-            Type: "GET",
-            dataType: "json",
-            data: {supId : "廷洋"},
-            success: function (data) {
-				if(data.length <= 0){
+		var obj = {};
+		obj["tag"] = $("#search_val").val();
+		if(obj["tag"] == ""){
+			show_all_funiture();
+		}
+		else{
+			$("#Merchant_list").html("");
+			$.post("search_queryAPI.php", obj)
+			.done(function (data) {
+				//window.alert(data);
+				//data.length <= 0
+				if(false){
 					alert("無符合搜尋的結果。");
 					location.reload(true);
 				}
 				else{
+					console.log(data);
 					$.each(data,function(index,value){
 						var insert_result = "";
+						console.log(value);
 						insert_result += `
 						<tr id = "${value.fId}">
 								<td>${value.amount}</td>
@@ -185,15 +190,12 @@ $("document").ready(function(){
 								</td>
 							</tr>
 						</tr>
-						`
+						`;
 						$("#Merchant_list").append(insert_result);
 					});
 				}
-              
-                  
-              
-            }
-        });
+			});
+		}
     });
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
