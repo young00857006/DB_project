@@ -1,9 +1,9 @@
 <?php // query_API.php
-  require_once '../login.php';
+  require_once 'login.php';
   $conn = new mysqli($hn, $un, $pw, $db);
   if ($conn->connect_error) die("Fatal Error");
   $tag = $_POST["tag"];
-  $query  = "SELECT * FROM furniture NATURAL JOIN have WHERE type='".$tag."' OR  color='".$tag."' OR  material='".$tag."' OR  supId='".$tag."' OR  amount='".$tag."'";
+  $query  = "SELECT * FROM furniture NATURAL JOIN have WHERE type='".$tag."' OR  color='".$tag."' OR  fId='".$tag."' OR material='".$tag."' OR  supId='".$tag."' OR  amount='".$tag."'";
   $result = $conn->query($query);
   if (!$result) die("Fatal Error");
 
