@@ -2,8 +2,8 @@
   require_once '../login.php';
   $conn = new mysqli($hn, $un, $pw, $db);
   if ($conn->connect_error) die("Fatal Error");
-
-  $query  = "SELECT * FROM furniture NATURAL JOIN have";
+  $supId = $POST["sId"];
+  $query  = "SELECT * FROM furniture NATURAL JOIN have WHERE sId='".$sId."'";
   $result = $conn->query($query);
   if (!$result) die("Fatal Error");
 
