@@ -1,6 +1,6 @@
 <?php
     require_once("../login.php");
-    $supId=$_GET["supId"];
+    $supId=$_POST["supId"];
     $conn = new mysqli($hn, $un, $pw, $db);
     
     if ($conn->connect_error) die("Fatal Error");

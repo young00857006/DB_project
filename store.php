@@ -15,12 +15,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/store.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>//store_act.js
 $(document).ready(function(){
 	// Activate tooltip
@@ -93,7 +96,7 @@ function show_all_funiture(){//需要傳入sid
 							<td>${value.type}</td>
 							<td>${value.color}</td>
 							<td>${value.material}</td>
-							<td>${value.supId}</td>
+							<td><a id = "${"sup_"+value.fId}" data-toggle="tooltip" title="">${value.supId}</a></td>
 							<td>
 								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -101,14 +104,28 @@ function show_all_funiture(){//需要傳入sid
 						</tr>
 				</tr>
 				`;
+				console.log("x");
 				$("#Merchant_list").append(insertHTML);
+				var sup_obj = {};
+				sup_obj["supId"] = value.supId;
+				$.post("php-publisher/getPublisher_query.php",sup_obj)
+					.done(function (data) {
+						var text = `${"地址："+data[0]["supAdder"] +"\n電話："+data[0]["supPhone"]}`;
+						$("#sup_"+value.fId).attr("title",text);
+					});
+				$(function(){
+					$('[data-toggle="tooltip"]').tooltip();
+				});
 			});
-			$.getJSON("count_queryAPI.php",function(data){
-				var insetSum="";
-				insetSum += 
-				`總家具數：${data[0]["COUNT(fId)"]}`;
-				$("#sum").text(insetSum);
-			});
+			var sid = {};
+			sid["sId"] = <?php echo '"'.$user.'";';?>
+			$.post("count_queryAPI.php", sid)
+				.done(function (data) {
+					var insetSum="";
+					insetSum += 
+					`總家具數：${data[0]["COUNT(fId)"]}`;
+					$("#sum").text(insetSum);
+				});
 			$(".edit").click(function(e){//編輯家具
 				var click_item = $(e.target).parents("tr").children('td');
 				$("#edit_amount").val(click_item.eq(0).text());
