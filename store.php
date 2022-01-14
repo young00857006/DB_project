@@ -160,6 +160,7 @@ $("document").ready(function(){
     $(".search-box").focusout(function(){//搜尋
 		var obj = {};
 		obj["tag"] = $("#search_val").val();
+		obj["sId"] = <?php echo '"'.$user.'";';?>
 		$("#sum").hide();
 		if(obj["tag"] == ""){
 			show_all_funiture();
