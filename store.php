@@ -210,7 +210,7 @@ $("document").ready(function(){
 <div class="container-xl">
 	<div class="search-box">
 		<i class="material-icons">&#xE8B6;</i>
-		<input type="text" class="form-control" id = "search_val" placeholder="以編號搜尋&hellip;">
+		<input type="text" class="form-control" id = "search_val" placeholder="SEARCH&hellip;">
 	</div>
 	<div class="table-responsive">
 		<div class="table-wrapper">
