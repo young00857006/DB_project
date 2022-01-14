@@ -126,7 +126,6 @@ function show_all_funiture(){
             console.log(click_item_fid);
             $("#delete_confirm_btn").click(function(){//刪除此家具
                 delete_funiture(click_item_fid,sid);
-
             });
         });
     });
@@ -141,7 +140,8 @@ $("document").ready(function(){
 	$.getJSON("php-publisher/publisherQuery_API.php", function (data) {
 		for (let item in data) {
 			$.each(data,function(index,value){
-				var inset_sup = `
+				var inset_sup = 
+				`
 				<option value="${value.supId}">${value.supId}</option>
 				`;
 				$("#edit_supId").append(inset_sup);
@@ -155,15 +155,12 @@ $("document").ready(function(){
         post_funiture();
 		location.reload(true);
     });
-    
     $(".search-box").focusout(function(){
         console.log($("#search_val").val());
     });
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
-			
-            $(window).attr('location','php-member/logout.php');
-        }
+         $(window).attr('location','php-member/logout.php');
     });
 });
 </script>
@@ -388,7 +385,6 @@ $("document").ready(function(){
 				</div>
 				<div class="modal-body">					
 					<p>請問試問要刪除此家具？</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="取消">

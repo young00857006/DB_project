@@ -61,7 +61,7 @@ $(document).ready(function(){
 				<thead>
 					<tr>
                         <th></th>
-						<th>供應商編號</th>
+						<th>供應商名稱</th>
 						<th>地址</th>
 						<th>電話</th>
 					</tr>
@@ -108,28 +108,28 @@ $(document).ready(function(){
 <div id="addEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form action="php-publisher/publisherInsert_API.php" method="POST">
 				<div class="modal-header">
 					<h4 class="modal-title">新增供應商</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>供應商編號</label>
-						<input id  = "post_supId" type="text" class="form-control" required>
+						<label>供應商名稱</label>
+						<input name  = "supId" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>地址</label>
-						<input id  = "post_supAdder" type="text" class="form-control" required>
+						<input name  = "supAdder" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>電話</label>
-						<input id  = "post_supPhone" type="text" class="form-control" required>
+						<input name  = "supPhone" type="text" class="form-control" required>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="取消">
-					<input type="button" class="btn btn-success" id = "post_confirm_btn" value="新增">
+					<input type="submit" class="btn btn-success" id = "post_confirm_btn" value="新增">
 				</div>
 			</form>
 		</div>
@@ -146,7 +146,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>供應商編號</label>
+						<label>供應商名稱</label>
 						<input id  = "edit_supid"type="text" class="form-control" readonly="readonly" required>
 					</div>
 					<div class="form-group">
@@ -177,7 +177,6 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-body">					
 					<p>請問試問要刪除此供應商？</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="取消">
