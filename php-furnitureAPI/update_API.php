@@ -10,6 +10,7 @@
     isset($_POST['color']) &&
     isset($_POST['material'])&&
     isset($_POST['sId']) &&
+    isset($_POST['supId']) &&
     isset($_POST["amount"]) 
   ) {
     $fId   = get_post($conn, 'fId');
@@ -17,11 +18,12 @@
     $color = get_post($conn, 'color');
     $material = get_post($conn, 'material');
     $amount = get_post($conn, 'amount');
+    $supId = get_post($conn, 'supId');
     $sId = get_post($conn, 'sId');
     // echo "i.";
     // echo $fId;
     // .$type.$material.$sId.$amount
-    $query    = "UPDATE furniture SET type = '".$type."' , color = '".$color."',material = '".$material."' WHERE fId='".$fId."'";
+    $query    = "UPDATE furniture SET type = '".$type."' , color = '".$color."' , supId = '".$supId."' ,material = '".$material."' WHERE fId='".$fId."'";
     $result   = $conn->query($query);
     if (!$result) echo "UPDATE failed<br><br>";
     else echo "Successful!!";

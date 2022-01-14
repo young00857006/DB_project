@@ -111,12 +111,10 @@
             obj["color"] = $("#color").val();
             obj["material"] = $("#material").val();
             obj["sId"] = $("#sId").val();
-
             $.post("php-furnitureAPI/delete_API.php", obj)
                 .done(function (data) {
                     window.alert(data);
                 });
-
         }
 
         //更新

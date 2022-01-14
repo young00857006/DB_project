@@ -1,3 +1,10 @@
+<?php
+    session_start();  //很重要，可以用的變數存在session裡
+    $user=$_SESSION["sId"];
+    if(!$user){
+  header("location:HomePage.php");
+ }   
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +21,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script  type="text/javascript" src="js/store_act.js"></script>
-
-<script>
+<script>//store_act.js
 $(document).ready(function(){
 	// Activate tooltip
 	$('[data-toggle="tooltip"]').tooltip();
@@ -39,6 +44,126 @@ $(document).ready(function(){
 			$("#selectAll").prop("checked", false);
 		}
 	});
+});
+</script>
+<script>
+	function delete_funiture(fid,sid){
+		let obj = {};
+		obj["fId"] = fid;
+		obj["sId"] = sid;
+		$.post("php-furnitureAPI/delete_API.php", obj)
+			.done(function (data) {
+				window.alert(data);
+			});
+}
+function edit_funiture(obj){
+    $.post("php-furnitureAPI/update_API.php", obj)
+		.done(function (data) {
+			window.alert(data);
+		});
+}
+function post_funiture(){//新增家具
+    let obj = {};
+    obj["fId"] = $("#post_fid").val();
+    obj["type"] = $("#post_type").val();
+    obj["color"] = $("#post_color").val();
+    obj["material"] = $("#post_material").val();
+    obj["supId"] = $("#post_supId").val();
+	obj["amount"] = $("#post_amount").val();
+    obj["sId"] = <?php echo '"'.$user.'";';?>
+    console.log(obj);
+	$.post("php-furnitureAPI/insert_API.php", obj)
+		.done(function (data) {
+			window.alert(data);
+		});
+}
+function show_all_funiture(){
+    var url = "php-furnitureAPI/query_API.php";
+    $("#Merchant_list").html("");
+    $.getJSON(url,function(result){
+        $.each(result,function(index,value){
+            var insertHTML = "";
+            insertHTML += `
+            <tr id = "${value.fId}">
+						<td>${value.amount}</td>
+						<td>${value.fId}</td>
+						<td>${value.type}</td>
+						<td>${value.color}</td>
+						<td>${value.material}</td>
+						<td>${value.supId}</td>
+						<td>
+							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+						</td>
+					</tr>
+            </tr>
+            `;
+            $("#Merchant_list").append(insertHTML);
+        });
+        $(".edit").click(function(e){//編輯家具
+            var click_item = $(e.target).parents("tr").children('td');
+            $("#edit_amount").val(click_item.eq(0).text());
+            $("#edit_fid").val(click_item.eq(1).text());
+            $("#edit_type").val(click_item.eq(2).text());
+            $("#edit_color").val(click_item.eq(3).text());
+            $("#edit_material").val(click_item.eq(4).text());
+            $("#edit_supId").val(click_item.eq(5).text());
+            $("#edit_save_btn").click(function(){
+				var obj = {};
+				obj["fId"] = $("#edit_fid").val();
+				obj["type"] = $("#edit_type").val();
+				obj["color"] = $("#edit_color").val();
+				obj["material"] = $("#edit_material").val();
+				obj["amount"] = $("#edit_amount").val();
+				obj["supId"] = $("#edit_supId").val();
+            	obj["sId"] = <?php echo '"'.$user.'";';?>
+                edit_funiture(obj);
+            });
+        });
+		$(".delete").click(function(e){
+            var click_item_fid = $(this).prev().parents("tr").eq(0).attr('id');
+			var sid = <?php echo '"'.$user.'";';?>
+            console.log(click_item_fid);
+            $("#delete_confirm_btn").click(function(){//刪除此家具
+                delete_funiture(click_item_fid,sid);
+
+            });
+        });
+    });
+}
+
+$("document").ready(function(){
+
+    console.log("start");
+    //將供應商填入列表
+	$("#edit_supId").html("");
+	$("#post_supId").html("");
+	$.getJSON("php-publisher/publisherQuery_API.php", function (data) {
+		for (let item in data) {
+			$.each(data,function(index,value){
+				var inset_sup = `
+				<option value="${value.supId}">${value.supId}</option>
+				`;
+				$("#edit_supId").append(inset_sup);
+				$("#post_supId").append(inset_sup);
+			});
+		}
+	});
+    
+    show_all_funiture();
+    $("#post_confirm_btn").click(function(){
+        post_funiture();
+		location.reload(true);
+    });
+    
+    $(".search-box").focusout(function(){
+        console.log($("#search_val").val());
+    });
+    $("#sign_out_btn").click(function(){
+        if (confirm('您是否要登出') == true) {
+            $(window).attr('location','HomePage.php');
+        }
+    });
 });
 </script>
 </head>
@@ -65,7 +190,7 @@ $(document).ready(function(){
 				<thead>
 					<tr>
 						<th>數量</th>
-						<th>家具編號</th>
+						<th>家具名稱</th>
 						<th>種類</th>
 						<th>顏色</th>
 						<th>材質</th>
@@ -172,7 +297,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>家具編號</label>
+						<label>家具名稱</label>
 						<input id  = "post_fid" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
@@ -193,7 +318,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<label>供應商</label>
-						<select id  = "post_sid" name="supplier" id="supplier">
+						<select id  = "post_supId" name="supplier" id="supplier">
 							
 						</select>
 					</div>
@@ -217,7 +342,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>家具編號</label>
+						<label>家具名稱</label>
 						<input id  = "edit_fid"type="text" class="form-control" readonly="readonly" required>
 					</div>
 					<div class="form-group">
@@ -238,7 +363,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group">
 						<label>供應商</label>
-						<select id  = "edit_sid" name="supplier" id="supplier">
+						<select id  = "edit_supId" name="supplier" id="supplier">
                             <option value=""></option>
 						</select>
 					</div>	

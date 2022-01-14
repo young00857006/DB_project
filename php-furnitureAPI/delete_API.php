@@ -5,20 +5,13 @@
 
     if (
         isset($_POST['fId'])   &&
-        isset($_POST['type'])  &&
-        isset($_POST['color']) &&
-        isset($_POST['material']) &&
         isset($_POST['sId'])
       ) 
     {
         $fId   = get_post($conn, 'fId');
-        $type    = get_post($conn, 'type');
-        $color = get_post($conn, 'color');
-        $material = get_post($conn, 'material');
         $sId = get_post($conn, 'sId');
 
-        $query    = "DELETE FROM furniture WHERE fId='$fId' and
-                     type='$type' and color='$color' and material='$material'";
+        $query    = "DELETE FROM furniture WHERE fId='$fId'";
         $result   = $conn->query($query);
         if (!$result) echo "DELETE failed<br><br>";
         else echo "Successful delete!!";

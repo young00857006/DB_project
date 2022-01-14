@@ -3,15 +3,15 @@ function delete_supplier(supId){
 }
 function edit_supplier(click_item){
     console.log("edit");
+    var obj = {};
+    obj.supid = $("#edit_supid").val();
+    obj.supAdder = $("#edit_supAdder").val();
+    obj.supPhone = $("#edit_supPhone").val();
     console.log(click_item.parents("tr")[0].id);
 }
 function post_supplier(){//新增供應商
     var obj = {};
-    obj["fId"] = $("#post_fid").val();
-    obj["type"] = $("#post_type").val();
-    obj["color"] = $("#color").val();
-    obj["material"] = $("#post_material").val();
-    obj["supId"] = $("#post_sid").val();
+    
     //obj["sId"] = <?php echo '"'.$user.'";';?>
     console.log(obj);
 
@@ -44,10 +44,6 @@ function show_all_supplier(){
             $("#edit_supPhone").val(click_item.eq(3).text());
             
             $("#edit_save_btn").click(function(){
-                var obj = {};
-                obj.supid = $("#edit_supid").val();
-                obj.supAdder = $("#edit_supAdder").val();
-                obj.supPhone = $("#edit_supPhone").val();
                 edit_supplier(click_item);
             });
         });
@@ -75,10 +71,5 @@ $("document").ready(function(){
     
     $(".search-box").focusout(function(){
         console.log($("#search_val").val());
-    });
-    $("#sign_out_btn").click(function(){
-        if (confirm('您是否要登出') == true) {
-            $(window).attr('location','index.html');
-        }
     });
 });
