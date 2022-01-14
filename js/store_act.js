@@ -53,7 +53,7 @@ $("document").ready(function(){
     //將供應商填入列表
     $("#post_confirm_btn").click(function(){
         post_funiture();
-        location.reload();
+        //location.reload();
     });
 
     $(".edit").click(function(e){

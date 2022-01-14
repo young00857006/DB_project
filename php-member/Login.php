@@ -18,7 +18,7 @@
             $_SESSION["sId"] = $row["sId"];
             $_SESSION["sPhone"] = $row["sPhone"];
             $_SEESION["sAdder"] = $row["sAdder"];
-            header("location:/DB_project/merchant.html");
+            header("refresh:0;url=../funiture_list.html");
         }else{
                 function_alert("帳號或密碼錯誤"); 
             }
@@ -28,7 +28,7 @@
         }
 
         // Close connection
-        mysqli_close($link);
+        mysqli_close($conn);
 
     function function_alert($message) { 
         
