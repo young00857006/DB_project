@@ -71,6 +71,7 @@ function post_funiture(){//新增家具
     obj["supId"] = $("#post_supId").val();
 	obj["amount"] = $("#post_amount").val();
     obj["sId"] = <?php echo '"'.$user.'";';?>
+    console.log(obj);
 	$.post("php-furnitureAPI/insert_API.php", obj)
 		.done(function (data) {
 			window.alert(data);
@@ -81,9 +82,9 @@ function show_all_funiture(){//需要傳入sid
 	var obj = {};
 	obj["sId"] = <?php echo '"'.$user.'";';?>
     $("#Merchant_list").html("");
-	$("#sum").show();
 	$.post(url, obj)
 		.done(function (data) {
+			console.log(data);
 			$.each(data,function(index,value){
 				var insertHTML = "";
 				insertHTML += `
@@ -102,12 +103,6 @@ function show_all_funiture(){//需要傳入sid
 				</tr>
 				`;
 				$("#Merchant_list").append(insertHTML);
-			});
-			$.getJSON("count_queryAPI.php",function(data){
-				var insetSum="";
-				insetSum += 
-				`總家具數：${data[0]["COUNT(fId)"]}`;
-				$("#sum").text(insetSum);
 			});
 			$(".edit").click(function(e){//編輯家具
 				var click_item = $(e.target).parents("tr").children('td');
@@ -132,15 +127,18 @@ function show_all_funiture(){//需要傳入sid
 			$(".delete").click(function(e){
 				var click_item_fid = $(this).prev().parents("tr").eq(0).attr('id');
 				var sid = <?php echo '"'.$user.'";';?>
+				console.log(click_item_fid);
 				$("#delete_confirm_btn").click(function(){//刪除此家具
 					delete_funiture(click_item_fid,sid);
 				});
 			});
 		});
+	
 }
 
 $("document").ready(function(){
 
+    console.log("start");
     //將供應商填入列表
 	$("#edit_supId").html("");
 	$("#post_supId").html("");
@@ -160,7 +158,6 @@ $("document").ready(function(){
     $(".search-box").focusout(function(){//搜尋
 		var obj = {};
 		obj["tag"] = $("#search_val").val();
-		$("#sum").hide();
 		if(obj["tag"] == ""){
 			show_all_funiture();
 		}
@@ -175,8 +172,10 @@ $("document").ready(function(){
 					location.reload(true);
 				}
 				else{
+					console.log(data);
 					$.each(data,function(index,value){
 						var insert_result = "";
+						console.log(value);
 						insert_result += `
 						<tr id = "${value.fId}">
 								<td>${value.amount}</td>
@@ -217,7 +216,7 @@ $("document").ready(function(){
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>家具 <b>管理</b></h2>
+						<h2><b><?php echo $user;?>の家具管理</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<button class="btn btn-info" id = "sign_out_btn">登出</button>
@@ -322,7 +321,6 @@ $("document").ready(function(){
                     
 				</tbody>
 			</table>
-			<p id = "sum" style = "font-size:18px; text-align:center; font-weight:bold;"></p>
 		</div>
 	</div>        
 </div>

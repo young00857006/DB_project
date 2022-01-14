@@ -1,6 +1,7 @@
 function delete_supplier(supId){
     var obj = {};
     obj["supId"] = supId;
+    console.log(supId);
     $.post("php-publisher/publisherDelete_API.php", obj)
 			.done(function (data) {
 				window.alert(data);
@@ -16,10 +17,12 @@ function delete_supplier(supId){
     });*/
 }
 function edit_supplier(click_item){
+    console.log("edit");
     var obj = {};
     obj.supid = $("#edit_supid").val();
     obj.supAdder = $("#edit_supAdder").val();
     obj.supPhone = $("#edit_supPhone").val();
+    console.log(click_item.parents("tr")[0].id);
 }
 function show_all_supplier(){
     var url = "php-publisher/publisherQuery_API.php";
@@ -55,6 +58,7 @@ function show_all_supplier(){
         });*/
         $(".delete").click(function(e){
             var click_item_supId = $(e.target).parents("tr").eq(0).attr('id');
+            console.log(click_item_supId);
             $("#delete_confirm_btn").click(function(){//刪除此家具
                 delete_supplier(click_item_supId);
             });
@@ -63,5 +67,12 @@ function show_all_supplier(){
 }
 
 $("document").ready(function(){
+
+    console.log("start");
+    //將供應商填入列表
+    
     show_all_supplier();
+    $(".search-box").focusout(function(){
+        console.log($("#search_val").val());
+    });
 });
