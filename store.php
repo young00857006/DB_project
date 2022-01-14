@@ -2,8 +2,8 @@
     session_start();  //很重要，可以用的變數存在session裡
     $user=$_SESSION["sId"];
     if(!$user){
-  header("location:HomePage.php");
- }   
+		header("location:HomePage.php");
+	}   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,7 +161,8 @@ $("document").ready(function(){
     });
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
-            $(window).attr('location','HomePage.php');
+			
+            $(window).attr('location','php-member/logout.php');
         }
     });
 });
