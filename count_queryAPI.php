@@ -2,7 +2,8 @@
   require_once 'login.php';
   $conn = new mysqli($hn, $un, $pw, $db);
   if ($conn->connect_error) die("Fatal Error");
-  $query  = "SELECT COUNT(fId) FROM furniture";
+  $sId = $_POST["sId"];
+  $query  = "SELECT COUNT(fId) FROM furniture WHERE sId='".$sId."'";
   $result = $conn->query($query);
   if (!$result) die("Fatal Error");
 

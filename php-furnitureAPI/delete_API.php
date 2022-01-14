@@ -11,7 +11,7 @@
         $fId   = get_post($conn, 'fId');
         $sId = get_post($conn, 'sId');
 
-        $query    = "DELETE FROM furniture WHERE fId='$fId'";
+        $query    = "DELETE FROM furniture WHERE fId='$fId' AND sId='$sId'";
         $result   = $conn->query($query);
         if (!$result) echo "DELETE failed<br><br>";
         else echo "Successful delete!!";
