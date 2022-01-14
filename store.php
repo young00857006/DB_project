@@ -47,14 +47,14 @@ $(document).ready(function(){
 });
 </script>
 <script>
-	function delete_funiture(fid,sid){
-		let obj = {};
-		obj["fId"] = fid;
-		obj["sId"] = sid;
-		$.post("php-furnitureAPI/delete_API.php", obj)
-			.done(function (data) {
-				window.alert(data);
-			});
+function delete_funiture(fid,sid){
+	let obj = {};
+	obj["fId"] = fid;
+	obj["sId"] = sid;
+	$.post("php-furnitureAPI/delete_API.php", obj)
+		.done(function (data) {
+			window.alert(data);
+		});
 }
 function edit_funiture(obj){
     $.post("php-furnitureAPI/update_API.php", obj)
@@ -77,58 +77,68 @@ function post_funiture(){//新增家具
 			window.alert(data);
 		});
 }
-function show_all_funiture(){
+function show_all_funiture(){//需要傳入sid
     var url = "php-furnitureAPI/query_API.php";
+	var obj = <?php echo '"'.$user.'";';?>;
+	obj["sId"] = <?php echo '"'.$user.'";';?>
+	console.log(obj);
     $("#Merchant_list").html("");
-    $.getJSON(url,function(result){
-        $.each(result,function(index,value){
-            var insertHTML = "";
-            insertHTML += `
-            <tr id = "${value.fId}">
-						<td>${value.amount}</td>
-						<td>${value.fId}</td>
-						<td>${value.type}</td>
-						<td>${value.color}</td>
-						<td>${value.material}</td>
-						<td>${value.supId}</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
+	$.ajax({
+            url : "php-furnitureAPI/query_API.php",
+            Type: "POST",
+            dataType: "json",
+            data: obj,
+            success: function (data) {
+				console.log(data);
+				$.each(result,function(index,value){
+					var insertHTML = "";
+					insertHTML += `
+					<tr id = "${value.fId}">
+								<td>${value.amount}</td>
+								<td>${value.fId}</td>
+								<td>${value.type}</td>
+								<td>${value.color}</td>
+								<td>${value.material}</td>
+								<td>${value.supId}</td>
+								<td>
+									<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								</td>
+							</tr>
 					</tr>
-            </tr>
-            `;
-            $("#Merchant_list").append(insertHTML);
-        });
-        $(".edit").click(function(e){//編輯家具
-            var click_item = $(e.target).parents("tr").children('td');
-            $("#edit_amount").val(click_item.eq(0).text());
-            $("#edit_fid").val(click_item.eq(1).text());
-            $("#edit_type").val(click_item.eq(2).text());
-            $("#edit_color").val(click_item.eq(3).text());
-            $("#edit_material").val(click_item.eq(4).text());
-            $("#edit_supId").val(click_item.eq(5).text());
-            $("#edit_save_btn").click(function(){
-				var obj = {};
-				obj["fId"] = $("#edit_fid").val();
-				obj["type"] = $("#edit_type").val();
-				obj["color"] = $("#edit_color").val();
-				obj["material"] = $("#edit_material").val();
-				obj["amount"] = $("#edit_amount").val();
-				obj["supId"] = $("#edit_supId").val();
-            	obj["sId"] = <?php echo '"'.$user.'";';?>
-                edit_funiture(obj);
-            });
-        });
-		$(".delete").click(function(e){
-            var click_item_fid = $(this).prev().parents("tr").eq(0).attr('id');
-			var sid = <?php echo '"'.$user.'";';?>
-            console.log(click_item_fid);
-            $("#delete_confirm_btn").click(function(){//刪除此家具
-                delete_funiture(click_item_fid,sid);
-            });
-        });
-    });
+					`;
+					$("#Merchant_list").append(insertHTML);
+				});
+				$(".edit").click(function(e){//編輯家具
+					var click_item = $(e.target).parents("tr").children('td');
+					$("#edit_amount").val(click_item.eq(0).text());
+					$("#edit_fid").val(click_item.eq(1).text());
+					$("#edit_type").val(click_item.eq(2).text());
+					$("#edit_color").val(click_item.eq(3).text());
+					$("#edit_material").val(click_item.eq(4).text());
+					$("#edit_supId").val(click_item.eq(5).text());
+					$("#edit_save_btn").click(function(){
+						var obj = {};
+						obj["fId"] = $("#edit_fid").val();
+						obj["type"] = $("#edit_type").val();
+						obj["color"] = $("#edit_color").val();
+						obj["material"] = $("#edit_material").val();
+						obj["amount"] = $("#edit_amount").val();
+						obj["supId"] = $("#edit_supId").val();
+						obj["sId"] = <?php echo '"'.$user.'";';?>
+						edit_funiture(obj);
+					});
+				});
+				$(".delete").click(function(e){
+					var click_item_fid = $(this).prev().parents("tr").eq(0).attr('id');
+					var sid = <?php echo '"'.$user.'";';?>
+					console.log(click_item_fid);
+					$("#delete_confirm_btn").click(function(){//刪除此家具
+						delete_funiture(click_item_fid,sid);
+					});
+				});
+			}
+    })
 }
 
 $("document").ready(function(){
@@ -150,8 +160,26 @@ $("document").ready(function(){
         post_funiture();
 		location.reload(true);
     });
-    $(".search-box").focusout(function(){
+    $(".search-box").focusout(function(){//搜尋
         console.log($("#search_val").val());
+		$.ajax({
+            url : "php-publisher/getPublisher_query.php",
+            Type: "GET",
+            dataType: "json",
+            data: {supId : "廷洋"},
+            success: function (data) {
+              for (let item in data) {
+                  let content = data[item].supId + "<br>";
+                      // "<tr>" +
+                      // "<td>" + data[item].fld + "</td>" +
+                      // "<td>" + data[item].type + "</td>" +
+                      // "<td>" + data[item].color + "</td>" +
+                      // "<td>" + data[item].material + "</td>" +
+                      // "</tr>";
+                  $("#menu").append(content);
+              }
+            }
+        });
     });
     $("#sign_out_btn").click(function(){
         if (confirm('您是否要登出') == true) {
