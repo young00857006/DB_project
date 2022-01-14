@@ -1,12 +1,13 @@
 <?php // query_API.php
-  require_once 'login.php';
+  require_once '../login.php';
   $conn = new mysqli($hn, $un, $pw, $db);
   if ($conn->connect_error) die("Fatal Error");
 
-  $query  = "SELECT * FROM test.furniture";
+  $query  = "SELECT * FROM furniture NATURAL JOIN have";
   $result = $conn->query($query);
   if (!$result) die("Fatal Error");
 
+  
   $rows = $result->num_rows;
   
   $arr = array();
